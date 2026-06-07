@@ -1,98 +1,89 @@
-\# 🎬 Churn Prediction — Streaming Platform
+# Churn Prediction — Streaming Platform
 
+A machine learning project to predict which streaming subscribers are likely 
+to cancel, so the marketing team can reach out before they leave.
 
+---
 
-\## 📌 Objectif
+## The Problem
 
-Prédire les abonnés à risque de résiliation sur une plateforme de streaming
+A streaming platform loses 26% of its subscribers every quarter.
+Retaining an existing customer is far cheaper than acquiring a new one,
+so we built a model to flag at-risk customers early.
 
-en utilisant des modèles de classification supervisée.
+---
 
+## Dataset
 
+IBM Telco Customer Churn — https://www.kaggle.com/datasets/blastchar/telco-customer-churn
+7043 customers, 21 features, 26.5% churn rate.
+Variables were renamed to fit a streaming context.
 
-\## 📁 Structure du projet
+---
 
-churn-prediction/
+## Methodology
 
-├── data/
+This project follows the CRISP-DM framework across 6 phases:
+Business Understanding → Data Understanding → Data Preparation
+→ Modeling → Evaluation → Deployment
 
-│   ├── raw/          # Dataset original
+---
 
-│   └── processed/    # Données nettoyées
+## Stack
 
-├── notebooks/
+Python, pandas, matplotlib, seaborn, scikit-learn, XGBoost, SHAP, imbalanced-learn, Power BI
 
-│   ├── 01\_EDA.ipynb
+---
 
-│   ├── 02\_preprocessing.ipynb
+## Repo Structure
 
-│   └── 03\_modeling.ipynb
+data/raw                         → original IBM Telco dataset
+data/processed                   → cleaned data, train/test splits
+notebooks/01_EDA.ipynb           → exploration and visualization
+notebooks/02_Preprocessing.ipynb → cleaning, encoding, SMOTE
+notebooks/03_Modeling.ipynb      → model training and evaluation
+outputs/models                   → saved XGBoost model
+outputs/predictions              → predictions_churn.csv
+dashboard                        → Power BI files
+report/rapport_crisp_dm.pdf      → full CRISP-DM report
 
-├── outputs/
+---
 
-│   ├── models/       # Modèles sauvegardés
+## Quickstart
 
-│   └── predictions/  # CSV final des scores
-
-├── dashboard/        # Fichiers Power BI
-
-├── report/           # Rapport CRISP-DM
-
-└── README.md
-
-
-
-\## 🛠️ Technologies utilisées
-
-\- Python 3.x, Jupyter Notebook
-
-\- pandas, matplotlib, seaborn
-
-\- scikit-learn, xgboost, imbalanced-learn
-
-\- Power BI
-
-\- Git / GitHub
-
-
-
-\## 📊 Dataset
-
-\- Source : \[Telco Customer Churn — IBM/Kaggle](https://www.kaggle.com/datasets/blastchar/telco-customer-churn)
-
-\- 7 043 clients, 21 variables
-
-
-
-\## 🚀 Lancer le projet
-
-```bash
-
-pip install -r requirements.txt
-
+git clone https://github.com/Merie1m/churn-prediction.git
+pip install pandas matplotlib seaborn scikit-learn xgboost imbalanced-learn shap jupyter
 jupyter notebook
 
-```
+Run notebooks in order: 01 → 02 → 03
 
+---
 
+## Results
 
-\## 👥 Équipe
+Logistic Regression  →  AUC-ROC: 0.8093
+Random Forest        →  AUC-ROC: 0.8170
+XGBoost (final)      →  AUC-ROC: 0.8177
 
-| Nom | Rôle |
+Out of 1409 test customers:
+High risk   → 283 customers
+Medium risk → 282 customers
+Low risk    → 844 customers
 
-|-----|------|
+---
 
-| ... | Data Scientist |
+## Key Findings
 
-| ... | Data Analyst |
+Customers on month-to-month contracts churn at 42.7%
+Fiber optic users churn at 41.9%
+Most churners leave within the first 10 months
+Monthly charges is the strongest predictor
 
-| ... | Project Manager |
+---
 
+## Team
 
-
-\## 📈 Résultats
-
-\- Meilleur modèle : \*\*XGBoost\*\*
-
-\- AUC-ROC : \*\*> 0.80\*\*
-
+Toumi Meriem      →  Data Scientist / Analyst / Engineer  →  EDA, Preprocessing, Modelisation, Git
+Ben Chaaben Eya   →  Data Analyst / BI Developer          →  Dashboard Power BI, Visualisations
+Bejaoui Hadil     →  Project Manager                      →  Rapport CRISP-DM, Backlog Jira
+Khouili Ghofrane  →  Data Engineer                        →  Pipeline, README, Slides soutenance
